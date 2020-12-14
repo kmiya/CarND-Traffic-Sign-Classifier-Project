@@ -23,7 +23,7 @@ The goals / steps of this project are the following:
 
 > 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](https://github.com/kmiya/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb)
+You're reading it! and here is a link to my [project code](https://github.com/kmiya/CarND-Traffic-Sign-Classifier-Project/blob/master/Traffic_Sign_Classifier.ipynb).
 
 ### Data Set Summary & Exploration
 
@@ -54,7 +54,7 @@ Here is an exploratory visualization of the training data set. The training data
 
 > 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
-Data augmentation is known to be a good practice to prevent over fitting. I used the following function to augment training data. The function slides, rotates, scales an input image and adds values randomly. The ranges of values `inp`, `scale`, and `rot` were referred to [Sermanet & LeCun, 2011](https://doi.org/10.1109/IJCNN.2011.6033589). In my case, adding random values to the input image greatly improved accuracy.
+Data augmentation is known to be a good practice to prevent over fitting. I used the following function to augment training data. The function slides, rotates, scales an input image and adds values randomly. The ranges of values `inp`, `scale`, and `rot` were referred to [Sermanet & LeCun, 2011](https://doi.org/10.1109/IJCNN.2011.6033589). In my case, adding random values to the input image greatly improved the accuracy.
 ```python
 import random
 
@@ -69,7 +69,7 @@ def data_augment(img):
     mat = cv2.getRotationMatrix2D((inp, inp), rot, scale)
     return cv2.warpAffine(result, mat, (32, 32), borderMode=cv2.BORDER_REPLICATE)
 ```
-The followings are examples of the data augmentation.
+The followings are examples of the augmented data.
 ![Data augmentation][image2]
 
 > 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
@@ -84,19 +84,18 @@ def he_initialize(n_nodes, shape, seed=0):
 
 
 | Layer         		| Description   	        					| 
-|:---------------------:|:---------------------------------------------:| 
+|:-----------------:|:---------------------------------:| 
 | Input         		| 32x32x3 RGB image   							| 
-| Convolution 5x5     	| 1x1 stride, outputs 28x28x6     				|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride, outputs 14x14x6     				|
-| Convolution 5x5	    | 1x1 stride, outputs 10x10x16					|
-| RELU					|												|
-| Max pooling	      	| 2x2 stride, outputs 5x5x6     				|
-| Fully connected		| outputs 120      								|
-| Fully connected		| outputs 84       								|
-| Fully connected		| outputs 43       								|
-| Softmax				|           									|
-|						|												|
+| Convolution 5x5  	| 1x1 stride, outputs 28x28x6   		|
+| RELU	    				|											            	|
+| Max pooling	     	| 2x2 stride, outputs 14x14x6				|
+| Convolution 5x5	  | 1x1 stride, outputs 10x10x16			|
+| RELU	    				|											            	|
+| Max pooling	     	| 2x2 stride, outputs 5x5x6     		|
+| Fully connected		| outputs 120       								|
+| Fully connected		| outputs 84         								|
+| Fully connected		| outputs 43         								|
+| Softmax			    	|                  									|
  
 
 
@@ -104,13 +103,12 @@ def he_initialize(n_nodes, shape, seed=0):
 
 I decided the hyperparameters by experiments.
 
-| Hyper Parameter  		| Values        	        					| 
-|:---------------------:|:---------------------------------------------:|
-| Optimizer             | Adam                                          |
-| Learning rate			| 0.001											| 
-| Batch Size       		| 256                  							| 
-| Number of epochs     	| 101                            				|
-|                       |                                               |
+| Hyper Parameter  		| Values      | 
+|:-------------------:|:-----------:|
+| Optimizer           | Adam        |
+| Learning rate		  	| 0.001 			| 
+| Batch Size       		| 256         | 
+| Number of epochs   	| 101         |
 
 > 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
